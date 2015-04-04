@@ -11,3 +11,6 @@ BashViewer - программа под андроид для упрощения 
 Parser 1.1 - парсер на python для сбора текстов с сайта bash.im
 
 extraсtor1.1.py - базовый экстрактор термов
+
+convert_bashbd_to_general_standart.py - скрипт для конвертирования исходных спарсенных json-ов в размечанные json-ы на основе снимка БД из программы BashViewer
+
