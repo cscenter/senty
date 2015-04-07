@@ -10,8 +10,8 @@ def another_bayes_method():
 
 # другие Байесы со скит леарна, парсить аргументы командной строки
 
-parser = argparse.ArgumentParser
-parser.add_argument('-m', help = 'choose Bayes ml method: 0 - Gaussian, 1 - ', requared = True, type = int)
+parser = argparse.ArgumentParser()
+parser.add_argument("-m", help = "ML method number:0-Gaussian,1-Another", required = True, type = int)
 args = parser.parse_args()
 
 def main(method):
