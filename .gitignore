@@ -1,4 +1,4 @@
 *.[oa]
 *~
-train_data
-train_data/*
+data
+data/*
