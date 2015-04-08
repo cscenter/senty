@@ -3,7 +3,7 @@ import json
 import os
 import math
 from pymystem3 import Mystem
-class extractor:
+class extractor1:
     def __init__(self, input_directory, output_directory):
         self.input_directory = input_directory
         self.output_directory = output_directory
@@ -58,4 +58,5 @@ class extractor:
 if my_extractor.extract():
     print 'All right'
 else:
-    print 'Not all right''''
+    print 'Not all right
+'''
