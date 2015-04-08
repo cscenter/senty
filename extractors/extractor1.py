@@ -3,7 +3,7 @@ import json
 import os
 import math
 from pymystem3 import Mystem
-class extractor1:
+class extractor:
     def __init__(self, input_directory, output_directory):
         self.input_directory = input_directory
         self.output_directory = output_directory
