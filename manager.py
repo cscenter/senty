@@ -4,8 +4,8 @@ import sys
 sys.path.append('extractors/')
 import extractor1
 
-training_data = '../data/training_data'
-extractor_data = '../data/extractor_data'
+training_data = 'data/training_data'
+extractor_data = 'data/extractor_data'
 
 def main():
     # обращаемся к экстрактору, он создаёт данные в папке training_data
