@@ -11,7 +11,7 @@ def json2obj(data): return json.loads(data, object_hook=_json_object_hook)
 bd = '../../../Database/snapshot/BashBD'
 bd_processed = '../../../Database/snapshot/processed/BashBD'
 path_from = '../../../Database/Marked(without json mark)/'
-path_processed = '../../../Database/Marked(without json mark)/processed/%s/' % str(datetime.date.today()) 
+path_processed = '../../../Database/Marked(without json mark)/processed/%s/' % str(datetime.datetime.today()) 
 path_to = '../../../Database/Marked(with json mark)/'
     
 def main():
@@ -47,7 +47,8 @@ def main():
         print 'Обработка файла с id: ' + str(id)        
         
     f.close()
-    shutil.move(bd, bd_processed + ' ' + str(datetime.date.today()))
+    import shutil
+    shutil.move(bd, bd_processed + ' ' + str(datetime.datetime.today()))
 
 if __name__ == '__main__':
     main()    
