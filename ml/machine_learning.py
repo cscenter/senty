@@ -1,15 +1,14 @@
 # encoding: UTF-8
 
-class MachineLearning:
-    def __init__(self):
-        pass
-    def fit(self, train_data_path):
-        pass
-    def 
+from abc import ABCMeta, abstractmethod, abstractproperty
 
-def main():
-    pass
+class MachineLearning():
+    __metaclass__ = ABCMeta
     
-if __name__ == '__main__':
-    main()        
+    @abstractmethod
+    def fit():
+        pass
         
+    @abstractmethod
+    def predict():  
+        pass    
