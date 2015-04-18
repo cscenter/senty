@@ -32,26 +32,26 @@ class n_gramm_extractor:
                 output_data[file]['id'] = data['id']
                 output_data[file]['positive'] = data['positive']
                 output_data[file]['sarcasm'] = data['sarcasm']
-                output_data[file]['n_grams'] = {}
+                output_data[file]['terms'] = {}
                 #убираю повторяющиеся слова
                 for gram in list_of_n_grams_strings:
-                    if gram not in output_data[file]['n_grams']:
-                        output_data[file]['n_grams'][gram] = 1
+                    if gram not in output_data[file]['terms']:
+                        output_data[file]['terms'][gram] = 1
                     else:
-                        output_data[file]['n_grams'][gram] += 1
-                for gram in output_data[file]['n_grams'].keys():
+                        output_data[file]['terms'][gram] += 1
+                for gram in output_data[file]['terms'].keys():
                     if gram not in list_of_all_n_grams:
                         list_of_all_n_grams[gram] = 1
                     else:
                         list_of_all_n_grams[gram] += 1
                     #подсчёт tf
-                    count_of_n_grams = output_data[file]['n_grams'][gram]
-                    output_data[file]['n_grams'][gram] = {'tf': float(count_of_n_grams)/len(list_of_n_grams_strings), 'idf': 0}
+                    count_of_n_grams = output_data[file]['terms'][gram]
+                    output_data[file]['terms'][gram] = {'tf': float(count_of_n_grams)/len(list_of_n_grams_strings), 'idf': 0}
 
             for file in input_files:
                 #подсчёт idf
-                for gram in output_data[file]['n_grams'].keys():
-                    output_data[file]['n_grams'][gram]['idf'] = math.log(float(len(input_files))/list_of_all_n_grams[gram])
+                for gram in output_data[file]['terms'].keys():
+                    output_data[file]['terms'][gram]['idf'] = math.log(float(len(input_files))/list_of_all_n_grams[gram])
                 #запись результата
                 with open(self.output_directory + '/' + file + '_tf-idf', 'w') as output_file:
                     json.dump(output_data[file], output_file)
