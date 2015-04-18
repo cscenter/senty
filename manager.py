@@ -1,5 +1,8 @@
 # encoding: UTF-8
 
+import os
+import json
+
 import sys
 sys.path.append('extractors/')
 import extractor1
@@ -11,15 +14,31 @@ testing_data = 'data/testing_data/'
 training_data = 'data/training_data/'
 extractor_data = 'data/extractor_data/'
 
+NEW_DATA = False
+
 def main():
     # обращаемся к экстрактору, он создаёт данные в папке training_data
-#    extractor = extractor1.extractor(extractor_data, training_data)
-#    if extractor.extract() == False:    
-#        raise Exception('error in extractor')
-    # экстрактор должен N процентов в тестинг, 100 - N в обучалку
+    if NEW_DATA:
+        extractor = extractor1.extractor(extractor_data, training_data)
+        if extractor.extract() == False:    
+            raise Exception('error in extractor')
+        
+        input_files = filter(lambda x: not x.endswith('~'), os.listdir(training_data))    
+        testing_data_ratio = 0.2
+        testing_data_count = int(testing_data_ratio * len(input_files))
+        # экстрактор должен a процентов testing_data_ratio тестинг, остальные в обучалку
+        import shutil
+        import random
+        for iter_num in range(0, testing_data_count):
+            while True:
+                num = random.randint(0, len(input_files))
+                file_name = training_data + '%s_tf-idf' % num
+                if os.path.exists(file_name):
+                    shutil.move(file_name, testing_data + '%s_tf-idf' % num)
+                    break
     
     # обращаемся к ml, оно работает с данными из training_data
-    nbg = NaiveBayesGaussian(training_data)
+    nbg = naive_bayes_gaussian.NaiveBayesGaussian(training_data)
     nbg.fit()
     my_svm = svm.SVM(training_data)
     my_svm.fit()    
