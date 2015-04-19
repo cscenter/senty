@@ -44,7 +44,8 @@ def get_quality(ml):
                 FP += 1
     print 'Accuracy: ' + str(float(true_count) / testing_files_count)
     print 'All test count: ' + str(testing_files_count) + '; TP: ' + str(TP) + '; TN: ' + str(TN) + '; FP: ' + str(FP) + '; FN: ' + str(FN)  
-
+    print ''    
+    
 #NEW_EXTRACTOR = True
 NEW_EXTRACTOR = False
 
@@ -79,13 +80,15 @@ def main():
     # тестим качество на данных testing_data   
  
     # 1. NBG 
-    nbg = naive_bayes_gaussian_tf_idf.NaiveBayesGaussian(training_data)
-    nbg.fit()   
-    get_quality(nbg)
+    nbg_tf_idf = naive_bayes_gaussian_tf_idf.NaiveBayesGaussian(training_data)
+    nbg_tf_idf.fit()   
+    print 'Naive Bayes Gaussian with tf idf'
+    get_quality(nbg_tf_idf)
     # 2. LinearSVC    
-    my_svm = svm_tf_idf.SVM(training_data)
-    my_svm.fit()
-    get_quality(my_svm)    
+    my_svm_tf_idf = svm_tf_idf.SVM(training_data)
+    my_svm_tf_idf.fit()
+    print 'SVC with tf idf'
+    get_quality(my_svm_tf_idf)    
     
 if __name__ == '__main__':
     main()
