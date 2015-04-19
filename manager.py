@@ -5,39 +5,48 @@ import json
 
 import sys
 sys.path.append('extractors/')
-import extractor1
+import standard_extractor
+#import n_gram_extractor
 sys.path.append('ml/')
 import naive_bayes_gaussian
 import svm
 
 testing_data = 'data/testing_data/'
 training_data = 'data/training_data/'
-extractor_data = 'data/extractor_data/'
+extractor_training_data = 'data/extractor_data/training_data/'
+extractor_testing_data = 'data/extractor_data/testing_data/'
 
-NEW_DATA = False
+NEW_EXTRACTOR = True
+#NEW_EXTRACTOR = False
 
 def main():
     # обращаемся к экстрактору, он создаёт данные в папке training_data
-    if NEW_DATA:
-        extractor = extractor1.extractor(extractor_data, training_data)
-        if extractor.extract() == False:    
-            raise Exception('error in extractor')
+    if NEW_EXTRACTOR:
+        # очистить папки training и testing data        
+        if os.path.exists(training_data):
+            files = filter(lambda x: not x.endswith('~'), os.listdir(training_data))
+            for f in files:
+                os.remove(training_data + f)
+            os.rmdir(training_data)
+        os.mkdir(training_data)    
+        if os.path.exists(testing_data):    
+            files = filter(lambda x: not x.endswith('~'), os.listdir(testing_data))
+            for f in files:
+                os.remove(testing_data + f)
+            os.rmdir(testing_data)        
+        os.mkdir(testing_data)
         
-        input_files = filter(lambda x: not x.endswith('~'), os.listdir(training_data))    
-        testing_data_ratio = 0.2
-        testing_data_count = int(testing_data_ratio * len(input_files))
-        # экстрактор должен a процентов testing_data_ratio тестинг, остальные в обучалку
-        import shutil
-        import random
-        for iter_num in range(0, testing_data_count):
-            while True:
-                num = random.randint(0, len(input_files))
-                file_name = training_data + '%s_tf-idf' % num
-                if os.path.exists(file_name):
-                    shutil.move(file_name, testing_data + '%s_tf-idf' % num)
-                    break
-    
+        extractor_for_training = standard_extractor.standard_extractor(extractor_training_data, training_data)
+       # extractor = n_gram_extractor.n_gramm_extractor(extractor_data, training_data, 2)
+        if extractor_for_training.extract() == False:    
+            raise Exception('error in extractor for training')
+        
+        extractor_for_testing = standard_extractor.standard_extractor(extractor_testing_data, testing_data)
+        if extractor_for_testing.extract() == False:    
+            raise Exception('error in extractor for testing')
+        
     # обращаемся к ml, оно работает с данными из training_data
+    
     nbg = naive_bayes_gaussian.NaiveBayesGaussian(training_data)
     nbg.fit()
     my_svm = svm.SVM(training_data)
