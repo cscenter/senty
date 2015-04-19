@@ -39,7 +39,7 @@ class MachineLearning():
                 tf = bash_dict[word][u'tf']
                 idf = bash_dict[word][u'idf']
                 bash_data[self.term_num[word]] = tf * idf
-            train_data.append(bash_data)    
+            train_data.append(bash_data)       
         return (train_data, target)        
     
     def predict_data_tf_idf(self, json_file_path):  

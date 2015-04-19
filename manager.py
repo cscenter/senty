@@ -10,6 +10,8 @@ import standard_extractor
 sys.path.append('ml/')
 import naive_bayes_gaussian_1_0
 import naive_bayes_gaussian_tf_idf
+import naive_bayes_multinomial_1_0
+import naive_bayes_multinomial_tf_idf
 import svm_1_0
 import svm_tf_idf
 
@@ -18,7 +20,7 @@ training_data = 'data/training_data/'
 extractor_training_data = 'data/extractor_data/training_data/'
 extractor_testing_data = 'data/extractor_data/testing_data/'
 
-# return accuracy, TP, TN, FP, FN
+# print accuracy, TP, TN, FP, FN
 def get_quality(ml):
     input_files = filter(lambda x: not x.endswith('~'), os.listdir(testing_data))
     testing_files_count = len(os.listdir(testing_data))         
@@ -93,13 +95,25 @@ def main():
     print 'Naive Bayes Gaussian with tf idf'
     get_quality(nbg_tf_idf)
 
-    # 3. LinearSVC 1 0    
+    # 3. MBG 1 0
+    mbg_1_0 = naive_bayes_multinomial_1_0.NaiveBayesMultinomial(training_data)
+    mbg_1_0.fit()   
+    print 'Naive Bayes Multinomial with 1 0'
+    get_quality(mbg_1_0)
+
+    # 4. MBG tf idf
+    mbg_tf_idf = naive_bayes_multinomial_tf_idf.NaiveBayesMultinomial(training_data)
+    mbg_tf_idf.fit()   
+    print 'Naive Bayes Multinomial with tf idf'
+    get_quality(mbg_tf_idf)
+
+    # 5. LinearSVC 1 0    
     my_svm_1_0 = svm_1_0.SVM(training_data)
     my_svm_1_0.fit()
     print 'SVC with 1 0'
     get_quality(my_svm_1_0)        
     
-    # 4. LinearSVC tf idf    
+    # 6. LinearSVC tf idf    
     my_svm_tf_idf = svm_tf_idf.SVM(training_data)
     my_svm_tf_idf.fit()
     print 'SVC with tf idf'
