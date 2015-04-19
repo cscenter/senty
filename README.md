@@ -6,13 +6,13 @@
 
 Вспомогательные программы:
 
-BashViewer - программа под андроид для упрощения процедуры получения чистой разметки: [BashViewer]https://github.com/andrey9594/bash-viewer
+* BashViewer - программа под андроид для упрощения процедуры получения чистой разметки: [BashViewer](https://github.com/andrey9594/bash-viewer)
 
-helping tools/* - вспомогательные скрипты, смотри readme в папке
+* helping tools/* - вспомогательные скрипты, смотри readme в папке
 
-extractors/* - экстракторы, смотри readme в папке
+* extractors/* - экстракторы, смотри readme в папке
 
-ml/* - смотри readme в папке
+* ml/* - модули МО, смотри readme в папке
 
-manager.py - диспетчер
+* manager.py - диспетчер
 
