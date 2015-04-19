@@ -21,6 +21,10 @@ def get_quality(ml):
     input_files = filter(lambda x: not x.endswith('~'), os.listdir(testing_data))
     testing_files_count = len(os.listdir(testing_data))         
     true_count = 0
+    TP = 0
+    TN = 0
+    FP = 0
+    FN = 0
     for f in input_files:
         bash = json.load(open(os.path.join(testing_data, f)), 'utf-8')
         real_class = 1
@@ -29,7 +33,17 @@ def get_quality(ml):
         ml_class = ml.predict(testing_data + f)
         if ml_class == real_class:
             true_count += 1
-    return float(true_count) / testing_files_count
+            if bash['positive'] == 'Yes':
+                TP += 1
+            else:
+                TN += 1;
+        else:
+            if bash['positive'] == 'Yes':
+                FN += 1
+            else:
+                FP += 1
+    print 'Accuracy: ' + str(float(true_count) / testing_files_count)
+    print 'All test count: ' + str(testing_files_count) + '; TP: ' + str(TP) + '; TN: ' + str(TN) + '; FP: ' + str(FP) + '; FN: ' + str(FN)  
 
 #NEW_EXTRACTOR = True
 NEW_EXTRACTOR = False
@@ -67,11 +81,11 @@ def main():
     # 1. NBG 
     nbg = naive_bayes_gaussian.NaiveBayesGaussian(training_data)
     nbg.fit()   
-    print get_quality(nbg)
+    get_quality(nbg)
     # 2. LinearSVC    
     my_svm = svm.SVM(training_data)
     my_svm.fit()
-    print get_quality(my_svm)    
+    get_quality(my_svm)    
     
 if __name__ == '__main__':
     main()
