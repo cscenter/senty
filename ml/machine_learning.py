@@ -9,7 +9,7 @@ class MachineLearning():
         self.terms_count = 0
         self.training_data_path = training_data_path
 
-    def fit_data(self):
+    def fit_data_tf_idf(self):
         input_files = filter(lambda x: not x.endswith('~'), os.listdir(self.training_data_path))
         all_words = set()
         for f in input_files:
@@ -42,7 +42,7 @@ class MachineLearning():
             train_data.append(bash_data)    
         return (train_data, target)        
     
-    def predict_data(self, json_file_path):  
+    def predict_data_tf_idf(self, json_file_path):  
         bash = json.load(open(json_file_path), 'utf-8')
         bash_data = []
         for iter in range(0, self.terms_count):

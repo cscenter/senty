@@ -8,8 +8,8 @@ sys.path.append('extractors/')
 import standard_extractor
 #import n_gram_extractor
 sys.path.append('ml/')
-import naive_bayes_gaussian
-import svm
+import naive_bayes_gaussian_tf_idf
+import svm_tf_idf
 
 testing_data = 'data/testing_data/'
 training_data = 'data/training_data/'
@@ -79,11 +79,11 @@ def main():
     # тестим качество на данных testing_data   
  
     # 1. NBG 
-    nbg = naive_bayes_gaussian.NaiveBayesGaussian(training_data)
+    nbg = naive_bayes_gaussian_tf_idf.NaiveBayesGaussian(training_data)
     nbg.fit()   
     get_quality(nbg)
     # 2. LinearSVC    
-    my_svm = svm.SVM(training_data)
+    my_svm = svm_tf_idf.SVM(training_data)
     my_svm.fit()
     get_quality(my_svm)    
     

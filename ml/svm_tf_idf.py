@@ -10,9 +10,9 @@ class SVM(machine_learning.MachineLearning):
         self.svm = LinearSVC()
 
     def fit(self):
-        train_data, target = machine_learning.MachineLearning.fit_data(self)
+        train_data, target = machine_learning.MachineLearning.fit_data_tf_idf(self)
         self.svm.fit(train_data, target)        
     
     def predict(self, json_file_path):
-        bash_data = machine_learning.MachineLearning.predict_data(self, json_file_path)
+        bash_data = machine_learning.MachineLearning.predict_data_tf_idf(self, json_file_path)
         return self.svm.predict(bash_data) 
