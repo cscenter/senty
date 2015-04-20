@@ -7,6 +7,7 @@ import sys
 sys.path.append('extractors/')
 import standard_extractor
 #import n_gram_extractor
+import more_than_n_gram_extractor
 sys.path.append('ml/')
 import naive_bayes_gaussian_1_0
 import naive_bayes_gaussian_tf_idf
@@ -50,9 +51,9 @@ def get_quality(ml):
     print 'All test count: ' + str(testing_files_count) + '; TP: ' + str(TP) + '; TN: ' + str(TN) + '; FP: ' + str(FP) + '; FN: ' + str(FN)  
     print ''    
     
-#NEW_EXTRACTOR = True
-NEW_EXTRACTOR = False
-
+NEW_EXTRACTOR = True
+#NEW_EXTRACTOR = False
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 def main():
     # обращаемся к экстрактору, он создаёт данные в папках training_data и testing_data
     if NEW_EXTRACTOR:
@@ -70,19 +71,21 @@ def main():
             os.rmdir(testing_data)        
         os.mkdir(testing_data)
         
-        extractor_for_training = standard_extractor.standard_extractor(extractor_training_data, training_data)
-       # extractor = n_gram_extractor.n_gramm_extractor(extractor_data, training_data, 2)
+
+       # extractor_for_training = standard_extractor.standard_extractor(extractor_training_data, training_data)
+        extractor_for_training = more_than_n_gram_extractor.n_gramm_extractor(extractor_training_data, training_data, 2)
         if extractor_for_training.extract() == False:    
             raise Exception('error in extractor for training')
         
-        extractor_for_testing = standard_extractor.standard_extractor(extractor_testing_data, testing_data)
+       # extractor_for_testing = standard_extractor.standard_extractor(extractor_testing_data, testing_data)
+        extractor_for_testing = more_than_n_gram_extractor.n_gramm_extractor(extractor_testing_data, testing_data, 2)
         if extractor_for_testing.extract() == False:    
             raise Exception('error in extractor for testing')
         
     # обращаемся к ml, оно работает с данными из training_data
  
     # тестим качество на данных testing_data   
- 
+    
     # 1. NBG 1 0
     nbg_1_0 = naive_bayes_gaussian_1_0.NaiveBayesGaussian(training_data)
     nbg_1_0.fit()   
