@@ -49,8 +49,8 @@ class n_gramm_extractor:
                         list_of_all_n_grams[gram] += 1
                     #подсчёт tf
                     count_of_n_grams = output_data[file]['terms'][gram]
-                    output_data[file]['terms'][gram] = {'tf': float(count_of_n_grams)/len(list_of_n_grams_strings), 'idf': 0}
-
+                    output_data[file]['terms'][gram] = {'tf': float(count_of_n_grams)/len(list_of_n_grams_strings), 'idf': 0,
+                                                        'count': float(count_of_n_grams)}
             for file in input_files:
                 #подсчёт idf
                 for gram in output_data[file]['terms'].keys():
@@ -63,6 +63,10 @@ class n_gramm_extractor:
         else:
             return True
 
-my_extractor = n_gramm_extractor('materials', 'results', 3)
-my_extractor.extract()
-
+'''
+my_extractor = n_gramm_extractor('../data/extractor_data/training_data/', '../data/training_data/', 2)
+if my_extractor.extract():
+    print 'ok'
+else:
+    print 'fail'    
+'''    

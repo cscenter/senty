@@ -41,7 +41,8 @@ class standard_extractor:
                         list_of_all_terms[term] += 1
                     #подсчёт tf
                     count_of_terms = output_data[file]['terms'][term]
-                    output_data[file]['terms'][term] = {'tf': float(count_of_terms)/len(list_of_terms), 'idf': 0}
+                    output_data[file]['terms'][term] = {'tf': float(count_of_terms)/len(list_of_terms), 'idf': 0, 
+                                                        'count': count_of_terms}
 
             for file in input_files:
                 #подсчёт idf
