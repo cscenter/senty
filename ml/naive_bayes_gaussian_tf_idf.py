@@ -14,5 +14,5 @@ class NaiveBayesGaussian(machine_learning.MachineLearning):
         self.gnb.fit(train_data, target)        
     
     def predict(self, json_file_path):
-        bash_data = machine_learning.MachineLearning.predict_data_tf_idf(self, json_file_path)
-        return self.gnb.predict(bash_data)  
+        bash_data = machine_learning.MachineLearning.predict_data_tf_idf(self, json_file_path)  
+        return self.gnb.predict(bash_data)

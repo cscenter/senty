@@ -81,8 +81,10 @@ class MachineLearning():
             bash_data = []
             for iter in range(0, self.terms_count):
                 bash_data.append(0)
+            bash_dict = dict(bash['terms'])
             for word in bash['terms']:
-                bash_data[self.term_num[word]] = 1
+                count = bash_dict[word][u'count']
+                bash_data[self.term_num[word]] = count
             train_data.append(bash_data)    
         return (train_data, target)        
     
@@ -92,8 +94,10 @@ class MachineLearning():
         for iter in range(0, self.terms_count):
             bash_data.append(0)
         for word in bash['terms']:
+            bash_dict = dict(bash['terms'])
             if word not in self.term_num:
                 continue
-            bash_data[self.term_num[word]] = 1
+            count = bash_dict[word][u'count']
+            bash_data[self.term_num[word]] = count
         return bash_data   
         

@@ -7,7 +7,7 @@ from sklearn.naive_bayes import MultinomialNB
 class NaiveBayesMultinomial(machine_learning.MachineLearning):        
     def __init__(self, training_data_path):
         machine_learning.MachineLearning.__init__(self, training_data_path)
-        self.gnb = MultinomialNB()
+        self.gnb = MultinomialNB(alpha = 1.0)
 
     def fit(self):
         train_data, target = machine_learning.MachineLearning.fit_data_1_0(self)
