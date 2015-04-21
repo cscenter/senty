@@ -7,15 +7,14 @@ import sys
 sys.path.append('extractors/')
 import standard_extractor
 #import n_gram_extractor
-import more_than_n_gram_extractor
+#import more_than_n_gram_extractor
 sys.path.append('ml/')
 import naive_bayes_gaussian_count
-import naive_bayes_gaussian_tf_idf
 import naive_bayes_multinomial_count
-import naive_bayes_multinomial_tf_idf
 import svm_1_0
 import svm_tf_idf
-import knn_1_0
+import logistic_regression_1_0
+import logistic_regression_tf_idf
 
 testing_data = 'data/testing_data/'
 training_data = 'data/training_data/'
@@ -87,47 +86,41 @@ def main():
  
     # тестим качество на данных testing_data   
     
-    # 1. NBG 1 0
-    nbg_1_0 = naive_bayes_gaussian_count.NaiveBayesGaussian(training_data)
-    nbg_1_0.fit()   
+    # 1. NBG count
+    nbg_count = naive_bayes_gaussian_count.NaiveBayesGaussian(training_data)
+    nbg_count.fit()   
     print 'Naive Bayes Gaussian with count'
-    get_quality(nbg_1_0)
+    get_quality(nbg_count)
 
-    # 2. NBG tf idf
-    nbg_tf_idf = naive_bayes_gaussian_tf_idf.NaiveBayesGaussian(training_data)
-    nbg_tf_idf.fit()   
-    print 'Naive Bayes Gaussian with tf idf'
-    get_quality(nbg_tf_idf)
-
-    # 3. MBG 1 0
-    mbg_1_0 = naive_bayes_multinomial_count.NaiveBayesMultinomial(training_data)
-    mbg_1_0.fit()   
+    # 2. MBG count
+    mbg_count = naive_bayes_multinomial_count.NaiveBayesMultinomial(training_data)
+    mbg_count.fit()   
     print 'Naive Bayes Multinomial with count'
-    get_quality(mbg_1_0)
+    get_quality(mbg_count)
 
-    # 4. MBG tf idf
-    mbg_tf_idf = naive_bayes_multinomial_tf_idf.NaiveBayesMultinomial(training_data)
-    mbg_tf_idf.fit()   
-    print 'Naive Bayes Multinomial with tf idf'
-    get_quality(mbg_tf_idf)
-
-    # 5. LinearSVC 1 0    
+    # 3. LinearSVC 1 0    
     my_svm_1_0 = svm_1_0.SVM(training_data)
     my_svm_1_0.fit()
     print 'SVC with 1 0'
     get_quality(my_svm_1_0)        
     
-    # 6. LinearSVC tf idf    
+    # 4. LinearSVC tf idf    
     my_svm_tf_idf = svm_tf_idf.SVM(training_data)
     my_svm_tf_idf.fit()
     print 'SVC with tf idf'
     get_quality(my_svm_tf_idf)    
     
-    # 7. KNN 1 0    
-    knn_with_1_0 = knn_1_0.KNN(training_data)
-    knn_with_1_0.fit()
-    print 'KNN with 1 0'
-    get_quality(knn_with_1_0)      
+    # 5. Logistic Regression 1 0
+    lg_with_1_0 = logistic_regression_1_0.LG(training_data)
+    lg_with_1_0.fit()
+    print 'Logistic Regression with 1 0'
+    get_quality(lg_with_1_0)    
+    
+    # 6. Logistic Regression tf idf
+    lg_with_tf_idf = logistic_regression_tf_idf.LG(training_data)
+    lg_with_tf_idf.fit()
+    print 'Logistic Regression with tf idf'
+    get_quality(lg_with_tf_idf)        
     
 if __name__ == '__main__':
     main()
