@@ -9,9 +9,9 @@ import standard_extractor
 #import n_gram_extractor
 import more_than_n_gram_extractor
 sys.path.append('ml/')
-import naive_bayes_gaussian_1_0
+import naive_bayes_gaussian_count
 import naive_bayes_gaussian_tf_idf
-import naive_bayes_multinomial_1_0
+import naive_bayes_multinomial_count
 import naive_bayes_multinomial_tf_idf
 import svm_1_0
 import svm_tf_idf
@@ -88,9 +88,9 @@ def main():
     # тестим качество на данных testing_data   
     
     # 1. NBG 1 0
-    nbg_1_0 = naive_bayes_gaussian_1_0.NaiveBayesGaussian(training_data)
+    nbg_1_0 = naive_bayes_gaussian_count.NaiveBayesGaussian(training_data)
     nbg_1_0.fit()   
-    print 'Naive Bayes Gaussian with 1 0'
+    print 'Naive Bayes Gaussian with count'
     get_quality(nbg_1_0)
 
     # 2. NBG tf idf
@@ -100,9 +100,9 @@ def main():
     get_quality(nbg_tf_idf)
 
     # 3. MBG 1 0
-    mbg_1_0 = naive_bayes_multinomial_1_0.NaiveBayesMultinomial(training_data)
+    mbg_1_0 = naive_bayes_multinomial_count.NaiveBayesMultinomial(training_data)
     mbg_1_0.fit()   
-    print 'Naive Bayes Multinomial with 1 0'
+    print 'Naive Bayes Multinomial with count'
     get_quality(mbg_1_0)
 
     # 4. MBG tf idf
