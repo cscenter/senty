@@ -15,6 +15,7 @@ import naive_bayes_multinomial_1_0
 import naive_bayes_multinomial_tf_idf
 import svm_1_0
 import svm_tf_idf
+import knn_1_0
 
 testing_data = 'data/testing_data/'
 training_data = 'data/training_data/'
@@ -51,8 +52,8 @@ def get_quality(ml):
     print 'All test count: ' + str(testing_files_count) + '; TP: ' + str(TP) + '; TN: ' + str(TN) + '; FP: ' + str(FP) + '; FN: ' + str(FN)  
     print ''    
     
-NEW_EXTRACTOR = True
-#NEW_EXTRACTOR = False
+#NEW_EXTRACTOR = True
+NEW_EXTRACTOR = False
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 def main():
     # обращаемся к экстрактору, он создаёт данные в папках training_data и testing_data
@@ -72,13 +73,13 @@ def main():
         os.mkdir(testing_data)
         
 
-       # extractor_for_training = standard_extractor.standard_extractor(extractor_training_data, training_data)
-        extractor_for_training = more_than_n_gram_extractor.n_gramm_extractor(extractor_training_data, training_data, 2)
+        extractor_for_training = standard_extractor.standard_extractor(extractor_training_data, training_data)
+        #extractor_for_training = more_than_n_gram_extractor.n_gramm_extractor(extractor_training_data, training_data, 2)
         if extractor_for_training.extract() == False:    
             raise Exception('error in extractor for training')
         
-       # extractor_for_testing = standard_extractor.standard_extractor(extractor_testing_data, testing_data)
-        extractor_for_testing = more_than_n_gram_extractor.n_gramm_extractor(extractor_testing_data, testing_data, 2)
+        extractor_for_testing = standard_extractor.standard_extractor(extractor_testing_data, testing_data)
+      #  extractor_for_testing = more_than_n_gram_extractor.n_gramm_extractor(extractor_testing_data, testing_data, 2)
         if extractor_for_testing.extract() == False:    
             raise Exception('error in extractor for testing')
         
@@ -121,6 +122,12 @@ def main():
     my_svm_tf_idf.fit()
     print 'SVC with tf idf'
     get_quality(my_svm_tf_idf)    
+    
+    # 7. KNN 1 0    
+    knn_with_1_0 = knn_1_0.KNN(training_data)
+    knn_with_1_0.fit()
+    print 'KNN with 1 0'
+    get_quality(knn_with_1_0)      
     
 if __name__ == '__main__':
     main()
