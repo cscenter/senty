@@ -7,7 +7,7 @@ from sklearn.naive_bayes import MultinomialNB
 class NaiveBayesMultinomial(machine_learning.MachineLearning):        
     def __init__(self, training_data_path):
         machine_learning.MachineLearning.__init__(self, training_data_path)
-        self.data_for_fit = machine_learning.MachineLearning.fit_data_1_0(self)
+        self.data_for_fit = machine_learning.MachineLearning.fit_data_count(self)
         
      #   best_alpha = 3.1321 # установлена по сиви, запустить сиви сново при новом обучающем множестве
         #best_alpha = self.get_best_alpha_cv()
@@ -18,7 +18,7 @@ class NaiveBayesMultinomial(machine_learning.MachineLearning):
         self.gnb.fit(self.data_for_fit[0], self.data_for_fit[1])        
     
     def predict(self, json_file_path):
-        bash_data = machine_learning.MachineLearning.predict_data_1_0(self, json_file_path)
+        bash_data = machine_learning.MachineLearning.predict_data_count(self, json_file_path)
         return self.gnb.predict(bash_data)
         
     def get_best_alpha_cv(self):
