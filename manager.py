@@ -51,8 +51,8 @@ def get_quality(ml):
     print 'All test count: ' + str(testing_files_count) + '; TP: ' + str(TP) + '; TN: ' + str(TN) + '; FP: ' + str(FP) + '; FN: ' + str(FN)  
     print ''    
     
-#NEW_EXTRACTOR = True
-NEW_EXTRACTOR = False
+NEW_EXTRACTOR = True
+#NEW_EXTRACTOR = False
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 def main():
     # обращаемся к экстрактору, он создаёт данные в папках training_data и testing_data
@@ -115,12 +115,6 @@ def main():
     lg_with_1_0.fit()
     print 'Logistic Regression with 1 0'
     get_quality(lg_with_1_0)    
-    
-    # 6. Logistic Regression tf idf
-    lg_with_tf_idf = logistic_regression_tf_idf.LG(training_data)
-    lg_with_tf_idf.fit()
-    print 'Logistic Regression with tf idf'
-    get_quality(lg_with_tf_idf)        
     
 if __name__ == '__main__':
     main()
