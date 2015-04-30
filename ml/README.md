@@ -12,8 +12,6 @@
 
 * __logistic_regression_1_0.py__ - Логическая регрессия, принимает вектора из 1 и 0
 
-* __logistic_regression_tf_idf.py__ - Логическая регрессия, принимает вектора из tf и idf
-
 * __svm_1_0.py__ - LinearSVC, принимает вектора из 1 и 0
 
 * __svm_td_idf.py__ - LinearSVC, принимает вектора из tf и idf
