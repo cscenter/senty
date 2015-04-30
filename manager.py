@@ -14,7 +14,6 @@ import naive_bayes_multinomial_count
 import svm_1_0
 import svm_tf_idf
 import logistic_regression_1_0
-import logistic_regression_tf_idf
 
 testing_data = 'data/testing_data/'
 training_data = 'data/training_data/'
