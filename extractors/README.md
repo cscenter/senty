@@ -7,3 +7,5 @@
 * __n_gram_extractor.py__ - создает tf-idf для n-грамм (только n-граммы)
 
 * __more_than_n_gram_extractor.py__ - создает tf-idf для n-грамм (1, 2, ..., n - граммы)
+
+* __standard_extractor_with_not.py__ - создаёт tf-idf для униграмм и для биграмм вида не+(слово) 
