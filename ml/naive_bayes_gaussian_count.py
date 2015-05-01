@@ -7,9 +7,8 @@ from sklearn.naive_bayes import GaussianNB
 class NaiveBayesGaussian(machine_learning.MachineLearning):        
     def __init__(self, training_data_path):
         machine_learning.MachineLearning.__init__(self, training_data_path)
-        import os
-        self.input_files = filter(lambda x: not x.endswith('~'), os.listdir(self.training_data_path))
-    
+        self.input_files = machine_learning.MachineLearning.getInputFiles(self)
+        
     def predict(self, block_size_in_ratio):
         self.data_for_fit = machine_learning.MachineLearning.fit_data_count(self)
         
@@ -21,7 +20,7 @@ class NaiveBayesGaussian(machine_learning.MachineLearning):
         totalTrue = 0
         cur_first_index = 0
         while cur_first_index < N:
-            print cur_first_index
+            print 'Testing set: ' + str(cur_first_index + 1) + ' to ' + str(min(N, cur_first_index + n)) + ' of ' + str(N)
             alone = []
             alone_target = []
             num = 0
@@ -49,5 +48,5 @@ class NaiveBayesGaussian(machine_learning.MachineLearning):
             
             cur_first_index += n
         
-        print 'Gaussian NB with count: ' + str(100. * float(totalTrue) / N) + '%'
+        print 'Gaussian NB with count: ' + str(round(100. * float(totalTrue) / N, 2)) + '%'
         return result    
