@@ -2,8 +2,8 @@
 import Tkinter
 import ScrolledText
 import json
-initial_directory = 'materials'
-result_directory = 'results'
+initial_directory = '../data/marked_data'    
+result_directory = '../data/extractor_data'
 my_tk = Tkinter.Tk()
 
 # реакция на кнопку
@@ -21,7 +21,7 @@ def event_info1(event):
     with open(result_directory + '/' + str(my_Entry1.get()) + '_tf-idf') as data_file2:
         data2 = json.load(data_file2)
     for term, info in data2['terms'].items():
-        my_txt2.insert(Tkinter.END, 'term' + ':' + term + '\n' + 'tf' + ':' + str(info['tf']) + '\n' + 'idf' + ':' + str(info['idf']) + '\n')
+        my_txt2.insert(Tkinter.END, 'term' + ':' + term + '\n' + 'tf' + ':' + str(info['tf']) + '\n' + 'idf' + ':' + str(info['idf']) + '\n' + '\n')
 
 
 def event_info3(event):
