@@ -32,7 +32,7 @@ class NaiveBayesMultinomial(machine_learning.MachineLearning):
                 self.data_for_fit[1].remove(self.data_for_fit[1][0])
                 num += 1
             
-            self.gnb = MultinomialNB()
+            self.gnb = MultinomialNB(alpha = 3)
             self.gnb.fit(self.data_for_fit[0], self.data_for_fit[1])
             
             alone_size = len(alone)
