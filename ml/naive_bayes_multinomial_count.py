@@ -2,7 +2,6 @@
 
 import machine_learning
 
-from sklearn.cross_validation import LeaveOneLabelOut
 from sklearn.naive_bayes import MultinomialNB
 
 class NaiveBayesMultinomial(machine_learning.MachineLearning):        
@@ -11,10 +10,6 @@ class NaiveBayesMultinomial(machine_learning.MachineLearning):
         import os
         self.input_files = filter(lambda x: not x.endswith('~'), os.listdir(self.training_data_path))
 
-    '''
-    def fit(self):
-        self.gnb.fit(self.data_for_fit[0], self.data_for_fit[1])               
-    '''
     def predict(self, block_size_in_ratio):
         self.data_for_fit = machine_learning.MachineLearning.fit_data_count(self)
         
@@ -54,7 +49,7 @@ class NaiveBayesMultinomial(machine_learning.MachineLearning):
             
             cur_first_index += n
         
-        print 'Multinomial NB with count: ' + str(100. * float(totalTrue) / N) + ' %'
+        print 'Multinomial NB with count: ' + str(100. * float(totalTrue) / N) + '%'
         return result    
         
 #DEBUG = True
