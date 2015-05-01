@@ -10,6 +10,7 @@ class standard_extractor:
         self.output_directory = output_directory
 
     def extract(self):
+        try:
             #вычисляем, сколько в директории лежит файлов
             input_files = filter(lambda x: not x.endswith('~'), os.listdir(self.input_directory))
             output_data = {}
@@ -42,8 +43,6 @@ class standard_extractor:
                         list_of_terms[nums_of_bigrams[i][1]] = ''
                 list_of_terms = filter(lambda x: x != '', list_of_terms)
 
-
-
                 output_data[file] = {}
                 output_data[file]['id'] = data['id']
                 output_data[file]['positive'] = data['positive']
@@ -62,7 +61,8 @@ class standard_extractor:
                         list_of_all_terms[term] += 1
                     #подсчёт tf
                     count_of_terms = output_data[file]['terms'][term]
-                    output_data[file]['terms'][term] = {'tf': float(count_of_terms)/len(list_of_terms), 'idf': 0}
+                    output_data[file]['terms'][term] = {'tf': float(count_of_terms)/len(list_of_terms), 'idf': 0,
+                                                        'count': count_of_terms}
 
             for file in input_files:
                 #подсчёт idf
@@ -71,7 +71,13 @@ class standard_extractor:
                 #запись результата
                 with open(self.output_directory + '/' + file + '_tf-idf', 'w') as output_file:
                     json.dump(output_data[file], output_file)
+        except Exception:
+            return False
+        else:
+            return True
+         
+'''                    
 my_extractor = standard_extractor('materials', 'results')
 my_extractor.extract()
-
+'''
 
