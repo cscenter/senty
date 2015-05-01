@@ -8,12 +8,12 @@ class MachineLearning():
         self.term_num = {}
         self.terms_count = 0
         self.training_data_path = training_data_path
-        self.input_files = filter(lambda x: not x.endswith('~'), os.listdir(self.training_data_path))
 
     def getInputFiles(self):
         return self.input_files
 
     def fit_data_tf_idf(self):
+        self.input_files = filter(lambda x: not x.endswith('~'), os.listdir(self.training_data_path))
         all_words = set()
         for f in self.input_files:
             bash = json.load(open(os.path.join(self.training_data_path, f)), 'utf-8')
@@ -46,6 +46,7 @@ class MachineLearning():
         return (train_data, target)        
 
     def fit_data_1_0(self):
+        self.input_files = filter(lambda x: not x.endswith('~'), os.listdir(self.training_data_path))
         all_words = set()
         for f in self.input_files:
             bash = json.load(open(os.path.join(self.training_data_path, f)), 'utf-8')
@@ -75,6 +76,7 @@ class MachineLearning():
         return (train_data, target)        
 
     def fit_data_count(self):
+        self.input_files = filter(lambda x: not x.endswith('~'), os.listdir(self.training_data_path))
         all_words = set()
         for f in self.input_files:
             bash = json.load(open(os.path.join(self.training_data_path, f)), 'utf-8')

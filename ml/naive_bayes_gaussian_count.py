@@ -7,10 +7,10 @@ from sklearn.naive_bayes import GaussianNB
 class NaiveBayesGaussian(machine_learning.MachineLearning):        
     def __init__(self, training_data_path):
         machine_learning.MachineLearning.__init__(self, training_data_path)
-        self.input_files = machine_learning.MachineLearning.getInputFiles(self)
         
     def predict(self, block_size_in_ratio):
         self.data_for_fit = machine_learning.MachineLearning.fit_data_count(self)
+        self.input_files = machine_learning.MachineLearning.getInputFiles(self)
         
         N = len(self.data_for_fit[0])
         n = block_size_in_ratio * float(len(self.data_for_fit[0]))
