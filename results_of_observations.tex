@@ -1,0 +1,58 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{cmap} 
+\usepackage[T2A]{fontenc} 
+\usepackage[utf8]{inputenc} 
+\usepackage[english, russian]{babel}
+
+%%% Математика 
+\usepackage{amssymb} \usepackage{dsfont}
+
+%%% Поля документа 
+\usepackage{geometry} 
+\geometry{top = 10mm} 
+\geometry{bottom = 20mm} 
+\geometry{left = 20mm}
+\geometry{right = 20mm}
+
+%%% Красная строка 
+\usepackage{indentfirst}
+
+%%% Заголовок 
+\author{Сухочев Александр и Балакший Андрей} 
+\title{Результаты наблюдений} 
+
+%%% Теоремы 
+\usepackage{amsthm} 
+\theoremstyle{plain} 
+\newtheorem{proposition}{Утверждение}[section]
+
+\theoremstyle{definition} 
+\newtheorem{theorem}{Теорема}[proposition]
+
+\theoremstyle{remark} 
+\newtheorem{remarks}{Следствие}[section]
+
+%%% Начало документа
+\begin{document}
+\maketitle
+
+Гляньте на эту табличку!
+
+Logistic Regression with 1 0
+
+Accuracy: 0.663265306122
+
+All test count: 98; TP: 7; TN: 58; FP: 10; FN: 23
+
+и
+
+Logistic Regression with tf idf
+
+Accuracy: 0.704081632653
+
+All test count: 98; TP: 1; TN: 68; FP: 0; FN: 29
+
+С Тф идф выдает лучший результат, но посмотрите на ТП! Просто так совпало что у нас больше негативных в тестирующем множестве, поэтому мы не можем сказать что тф идф лучше работает, видно ведь что он хуже определяет Позитивные! Переделывать обучающее множество нельзя, т.е. у нас и при работе программы будет подобное соотношение позитивных/негативных, но спасибо за полезный опыт
+
+\end{document}
