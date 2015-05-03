@@ -68,7 +68,7 @@ class standard_extractor:
             return False
         else:
             return True
-my_extractor = standard_extractor('materials', 'results', 5)
-my_extractor.extract()
+#my_extractor = standard_extractor('materials', 'results', 5)
+#my_extractor.extract()
 
 
