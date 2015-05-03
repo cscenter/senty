@@ -5,8 +5,8 @@ import json
 
 import sys
 sys.path.append('extractors/')
-import standard_extractor
-import standard_extractor_with_not
+import standard_extractor_with_mystem
+#import standard_extractor_with_not
 #import n_gram_extractor
 #import more_than_n_gram_extractor
 sys.path.append('ml/')
@@ -18,6 +18,29 @@ import logistic_regression_1_0
 
 marked_data = 'data/marked_data/'
 extractor_data = 'data/extractor_data/'
+
+def getAccuracyAndTF(ml, extractor):
+    log = getMlLogInExtractor(ml, extractor)
+    TP = 0
+    TN = 0
+    FP = 0
+    FN = 0
+    correct = 0
+    for l in log:
+        ml_result = l[1]
+        real_result = l[2]
+        if ml_result == real_result:
+            correct += 1
+            if ml_result == 1:
+                TP += 1
+            else:
+                TN += 1
+        else:
+            if ml_result == 1:
+                FP += 1
+            else:
+                FN += 1
+    return [correct, len(log), float(correct) / len(log), TP, TN, FP, FN]            
 
 def getMlResults(ml):
     return ml.predict(0.05)
@@ -69,24 +92,29 @@ def main():
 #    getFalsesInExtractor(nbg_count, extractor1)    
 #    diff = getDiffBetweenExtractors(nbg_count, extractor1, extractor2)    
 
-    extractor1 = standard_extractor.standard_extractor(marked_data, extractor_data)
+    extractor1 = standard_extractor_with_mystem.standard_extractor(marked_data, extractor_data)
     mnb_count = naive_bayes_multinomial_count.NaiveBayesMultinomial(extractor_data) 
-    extractor2 = standard_extractor_with_not.standard_extractor(marked_data, extractor_data)    
-    diff = getDiffBetweenExtractors(mnb_count, extractor1, extractor2)    
+    res = getAccuracyAndTF(mnb_count, extractor1)
+    print res
+   # extractor2 = standard_extractor_with_not.standard_extractor(marked_data, extractor_data)    
+   # diff = getDiffBetweenExtractors(mnb_count, extractor1, extractor2)    
     
 #    extractor1 = standard_extractor.standard_extractor(marked_data, extractor_data)
 #    extractor2 = standard_extractor_with_not.standard_extractor(marked_data, extractor_data)
 #    my_svm_1_0 = svm_1_0.SVM(extractor_data)
   #  diff = getDiffBetweenExtractors(my_svm_1_0, extractor1, extractor2)    
-    f = open('diff.txt', 'w')
-    for d in diff:
-        f.write(d + '\n')
-    f.close()
-    print 'Diffrence has been writen into diff.txt'
+ 
 #    extractor1 = standard_extractor.standard_extractor(marked_data, extractor_data)
+#    extractor2 = standard_extractor_with_not.standard_extractor(marked_data, extractor_data)    
 #    my_svm_tf_idf = svm_tf_idf.SVM(extractor_data)
-#    getFalsesInExtractor(my_svm_tf_idf, extractor1)    
-    
+#    diff = getDiffBetweenExtractors(my_svm_tf_idf, extractor1, extractor2)    
+ 
+ #   f = open('diff.txt', 'w')
+ #   for d in diff:
+ #       f.write(d + '\n')
+  #  f.close()
+ #   print 'Diffrence has been writen into diff.txt'
+   
     '''
     # 5. Logistic Regression 1 0
     lg_with_1_0 = logistic_regression_1_0.LG(marked_data)
