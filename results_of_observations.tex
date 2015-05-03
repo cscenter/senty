@@ -55,4 +55,41 @@ All test count: 98; TP: 1; TN: 68; FP: 0; FN: 29
 
 С Тф идф выдает лучший результат, но посмотрите на ТП! Просто так совпало что у нас больше негативных в тестирующем множестве, поэтому мы не можем сказать что тф идф лучше работает, видно ведь что он хуже определяет Позитивные! Переделывать обучающее множество нельзя, т.е. у нас и при работе программы будет подобное соотношение позитивных/негативных, но спасибо за полезный опыт
 
+\section{Таблицы точностей различных машинных обучений и экстракторов.}
+
+\subsection{Общая таблица}
+\begin{tabular} {|c|c|c|c|c|}
+\hline
+   ~~~~ & SE & N(only)-gramm & N-gramm E & SE with not \\
+   \hline
+  MNB & & & & \\
+   \hline
+  GNB & & & & \\
+   \hline
+  SVM 1 0 & & & & \\
+   \hline
+  SVM tf-idf & & & & \\
+   \hline
+  LogReg & & & & \\
+\hline
+\end{tabular}
+
+\subsection{Более подробно}
+\subsubsection{Standart Extractor}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+  ~~~~ & Correct & Total & Acc & TP & TN & FP & FN \\
+  \hline
+  MNB & 742 & 1115 & 0.6655 & 61 & 618 & 51 & 322  \\
+  \hline
+  GNB & & & & & & & \\
+  \hline
+  SVM 1 0 & & & & & & & \\
+  \hline
+  SVM tf-idf & & & & & & & \\
+\hline
+\end{tabular}
+
+
+
 \end{document}
