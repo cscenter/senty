@@ -13,3 +13,5 @@
 * __extractor_with_counting_number_of_rows_with_mystem.py__ -учитывает количество строк, если их больше пяти
 
 * __standard_extractor_without_mystem.py__ - создаёт tf-idf для униграмм, только без mystem-а
+
+* __standard_extractor_with_mystem_and_considering_multiple_letters.py__ стандартный экстрактор, убирающий повторяющиеся буквы в словах
