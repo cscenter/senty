@@ -5,9 +5,10 @@ import os
 import math
 from pymystem3 import Mystem
 class standard_extractor:
-    def __init__(self, input_directory, output_directory):
+    def __init__(self, input_directory, output_directory, threshold_of_rows_count):
         self.input_directory = input_directory
         self.output_directory = output_directory
+        self.threshold_of_rows_count = threshold_of_rows_count
 
     def extract(self):
         try:
@@ -27,11 +28,13 @@ class standard_extractor:
                 for i in range(0, len(list_of_terms)):
                     if list_of_terms[i] == '\n' or list_of_terms[i] == ' \n':
                         count_of_rows += 1
-                if count_of_rows < 5:
+                    if list_of_terms[i] == ' \n':
+                        list_of_terms[i] = '\n'
+                if count_of_rows < self.threshold_of_rows_count:
                     first_list_of_terms = list_of_terms
                     list_of_terms = []
                     for i in range(0, len(first_list_of_terms)):
-                        if first_list_of_terms[i] != '\n' and first_list_of_terms[i] != ' \n':
+                        if first_list_of_terms[i] != '\n':
                             list_of_terms.append(first_list_of_terms[i])
                 output_data[file] = {}
                 output_data[file]['id'] = data['id']
@@ -65,7 +68,7 @@ class standard_extractor:
             return False
         else:
             return True
-my_extractor = standard_extractor('materials', 'results')
+my_extractor = standard_extractor('materials', 'results', 5)
 my_extractor.extract()
 
 
