@@ -29,6 +29,10 @@ class standard_extractor:
                     if m.analyze(term)[0].get(u'analysis'):
                         if not m.analyze(term)[0][u'analysis'][0][u'gr'].startswith(self.service_parts_of_speech) and len(term) > 1:
                             list_of_terms.append(term)
+                        if term == u'не':
+                            list_of_terms.append(term)
+                    else:
+                        list_of_terms.append(term)
                 output_data[file] = {}
                 output_data[file]['id'] = data['id']
                 output_data[file]['positive'] = data['positive']
