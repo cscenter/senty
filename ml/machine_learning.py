@@ -82,7 +82,7 @@ class MachineLearning():
             bash = json.load(open(os.path.join(self.training_data_path, f)), 'utf-8')
             for word in bash['terms']:
                 all_words.add(word)
-        
+        print len(all_words)
         iter = 0
         self.terms_count = len(all_words)
         for word in all_words:
