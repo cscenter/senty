@@ -75,3 +75,89 @@ def more_than_n_gram_feature(n, directory):
 
         with open(directory + '/' + input_file, 'w') as output_file:
             json.dump(output_data[input_file], output_file)
+
+
+def without_prepositions(directory):
+    input_files = filter(lambda x: not x.endswith('~'), os.listdir(directory))
+    output_data = {}
+    m = Mystem()
+    #иду по документам
+    for input_file in input_files:
+        with open(directory + '/' + input_file) as data_file:
+            data = json.load(data_file)
+        list_of_terms = filter(lambda x: x not in ('', ' ', '\n'), data['text'].split(' '))
+        my_list = list_of_terms
+        list_of_terms = []
+        for term in my_list:
+            if m.analyze(term)[0].get(u'analysis'):
+                if not m.analyze(term)[0][u'analysis'][0][u'gr'].startswith(u'PR'):
+                    list_of_terms.append(term)
+            else:
+                list_of_terms.append(term)
+        text_of_output = ' '.join(['%s' % term for term in list_of_terms])
+
+        output_data[input_file] = {}
+        output_data[input_file]['id'] = data['id']
+        output_data[input_file]['positive'] = data['positive']
+        output_data[input_file]['sarcasm'] = data['sarcasm']
+        output_data[input_file]['text'] = text_of_output
+
+        with open(directory + '/' + input_file, 'w') as output_file:
+            json.dump(output_data[input_file], output_file)
+
+def without_conjunctions(directory):
+    input_files = filter(lambda x: not x.endswith('~'), os.listdir(directory))
+    output_data = {}
+    m = Mystem()
+    #иду по документам
+    for input_file in input_files:
+        with open(directory + '/' + input_file) as data_file:
+            data = json.load(data_file)
+        list_of_terms = filter(lambda x: x not in ('', ' ', '\n'), data['text'].split(' '))
+        my_list = list_of_terms
+        list_of_terms = []
+        for term in my_list:
+            if m.analyze(term)[0].get(u'analysis'):
+                if not m.analyze(term)[0][u'analysis'][0][u'gr'].startswith(u'CONJ'):
+                    list_of_terms.append(term)
+            else:
+                list_of_terms.append(term)
+        text_of_output = ' '.join(['%s' % term for term in list_of_terms])
+
+        output_data[input_file] = {}
+        output_data[input_file]['id'] = data['id']
+        output_data[input_file]['positive'] = data['positive']
+        output_data[input_file]['sarcasm'] = data['sarcasm']
+        output_data[input_file]['text'] = text_of_output
+
+        with open(directory + '/' + input_file, 'w') as output_file:
+            json.dump(output_data[input_file], output_file)
+
+def without_pronouns(directory):
+    input_files = filter(lambda x: not x.endswith('~'), os.listdir(directory))
+    output_data = {}
+    m = Mystem()
+    #иду по документам
+    for input_file in input_files:
+        with open(directory + '/' + input_file) as data_file:
+            data = json.load(data_file)
+        list_of_terms = filter(lambda x: x not in ('', ' ', '\n'), data['text'].split(' '))
+        my_list = list_of_terms
+        list_of_terms = []
+        for term in my_list:
+            if m.analyze(term)[0].get(u'analysis'):
+                if not m.analyze(term)[0][u'analysis'][0][u'gr'].startswith((u'SPRO', u'APRO')):
+                    list_of_terms.append(term)
+            else:
+                list_of_terms.append(term)
+        text_of_output = ' '.join(['%s' % term for term in list_of_terms])
+
+        output_data[input_file] = {}
+        output_data[input_file]['id'] = data['id']
+        output_data[input_file]['positive'] = data['positive']
+        output_data[input_file]['sarcasm'] = data['sarcasm']
+        output_data[input_file]['text'] = text_of_output
+
+        with open(directory + '/' + input_file, 'w') as output_file:
+            json.dump(output_data[input_file], output_file)
+

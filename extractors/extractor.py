@@ -2,7 +2,7 @@
 import json
 import os
 import math
-import features
+
 class extractor:
     def __init__(self, middle_directory, output_directory):
         self.output_directory = output_directory
@@ -53,12 +53,12 @@ class extractor:
             return True
 
 #features
-features.mystem_using('materials', 'materials1')
+#features.mystem_using('materials', 'materials1')
 #features.n_gram_feature(3, 'materials1')
-features.more_than_n_gram_feature(3, 'materials1')
+#features.more_than_n_gram_feature(3, 'materials1')
 
 
-my_extractor = extractor('materials1', 'results')
-my_extractor.extract()
+#my_extractor = extractor('materials1', 'results')
+#my_extractor.extract()
 
 
