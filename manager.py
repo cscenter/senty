@@ -5,6 +5,8 @@ import json
 
 import sys
 sys.path.append('extractors/')
+import features
+import extractor
 sys.path.append('ml/')
 import naive_bayes_gaussian_count
 import naive_bayes_multinomial_count
@@ -16,8 +18,8 @@ marked_data = 'data/marked_data/'
 middle_data = 'data/middle_data/'
 extractor_data = 'data/extractor_data/'
 
-def getAccuracyAndTF(ml, extractor):
-    log = getMlLogInExtractor(ml, extractor)
+def getAccuracyAndTF(ml):
+    log = getMlLogInExtractor(ml)
     TP = 0
     TN = 0
     FP = 0
@@ -39,21 +41,12 @@ def getAccuracyAndTF(ml, extractor):
                 FN += 1
     return [correct, len(log), float(correct) / len(log), TP, TN, FP, FN]            
 
-def getMlResults(ml):
-    return ml.predict(0.05)
+def getMlResults(ml, block_size_in_ratio):
+    return ml.predict(block_size_in_ratio)
     
-def getMlLogInExtractor(ml, extractor):    
-    if os.path.exists(extractor_data):
-        files = filter(lambda x: not x.endswith('~'), os.listdir(extractor_data))
-        for f in files:
-            os.remove(extractor_data + f)
-        os.rmdir(extractor_data)
-    os.mkdir(extractor_data)    
-    print 'Starting extracting...'
-    if extractor.extract() == False:     
-        raise Exception('error in extractor')    
-    print 'Extracting ok'    
-    log = getMlResults(ml)
+def getMlLogInExtractor(ml):    
+    block_size_in_ratio = 0.05
+    log = getMlResults(ml, block_size_in_ratio)
     return log
     
 def getFalsesInExtractor(ml, extractor):
@@ -89,16 +82,53 @@ def delete_folder_with_files(folder):
         files_in_folder = os.listdir(folder)
         for f in files_in_folder:
             os.remove(folder + f)
-        os.rmdir(folder)
-    os.mkdir(folder)    
-    
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+        os.rmdir(folder)     
+
+def executeMlAndPrintAccurancy(ml):
+    res = getAccuracyAndTF(ml)
+    print res
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 def main():
+    print 'Подготовка материалов...'
     delete_folder_with_files(middle_data)
     os.mkdir(middle_data)    
+    delete_folder_with_files(extractor_data)
+    os.mkdir(extractor_data)    
     
+    # обязательная насадка - прогонка через mystem + убираем знаки препинания
+    print 'Прогоняем через mystem и убираем знаки препинания...'
+    features.mystem_using(marked_data, middle_data)
+    # окончание обязательной насадки 
     
-    delete_folder_with_files(middle_data)
+    # удаление предлогов
+    #print 'Убираем предлоги...'
+    #features.without_prepositions(middle_data)    
+    
+    # удаление союзов
+    #print 'Убираем союзы...'
+    #features.without_conjunctions(middle_data)    
+    
+    # удаление местоимений
+    #print 'Убираем местоимения...'
+    #features.without_pronouns(middle_data)         
+    
+    # n-граммы
+    #print 'N граммы...'
+    #features.more_than_n_gram_feature(2, middle_data)
+    
+    print 'Экстрактор работает...'    
+    my_extractor = extractor.extractor(middle_data, extractor_data)
+    if my_extractor.extract() == False:
+        raise Exception('Error in extractor!')
+
+    print 'Запускаем машинное обучение...' 
+    #executeMlAndPrintAccurancy(naive_bayes_gaussian_count.NaiveBayesGaussian(extractor_data))
+    #executeMlAndPrintAccurancy(naive_bayes_multinomial_count.NaiveBayesMultinomial(extractor_data))
+    executeMlAndPrintAccurancy(svm_1_0.SVM(extractor_data))
+    #executeMlAndPrintAccurancy(svm_tf_idf.SVM(extractor_data))
+    #executeMlAndPrintAccurancy(logistic_regression_count.LG(extractor_data))
+    
+    #delete_folder_with_files(middle_data)
     '''
     f = open('GUI/diff.txt', 'w')
     for d in diff:
