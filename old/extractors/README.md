@@ -1,6 +1,6 @@
-# extractors
+# old/extractors
 
-Экстракторы:
+Экстракторы, используемые ранее, на момент написания readme, все фичи распологались в features.py:
 
 * __standard_extractor_with_mystem.py__ - создаёт tf-idf для униграмм
 
