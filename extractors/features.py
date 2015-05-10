@@ -61,6 +61,57 @@ def mystem_using_with_considering_of_multiple_letters(input_directory, output_di
                 json.dump(output_data[input_file], output_file)
 
 
+def emoticon_detection(input_directory, output_directory):
+    input_files = filter(lambda x: not x.endswith('~'), os.listdir(input_directory))
+    output_data = {}
+    for input_file in input_files:
+        with open(input_directory + '/' + input_file) as data_file:
+            data = json.load(data_file)
+        text = data['text'] + u' '
+        good_emoticons = (u'=)', u':D', u'XD', u':)', u';)', u':-)', u'))')
+        bad_emoticons = (u'=(', u':(', u';(', u':-(', u'((')
+        for emoticon in good_emoticons:
+            indicator = False
+            k2 = 0
+            while not indicator:
+                if text.find(emoticon, k2, len(text)) == -1:
+                    indicator = True
+                else:
+                    k1 = text.find(emoticon, k2, len(text))
+                    k2 = k1 + len(emoticon)
+                    while (k2 < len(text) - 2) and (text[k2 + 1] == emoticon[len(emoticon) - 1]):
+                        k2 += 1
+                    if text[k2] == emoticon[len(emoticon) - 1]:
+                        text = text[0:k1] + u' хоросмайл ' + text[k2+1:len(text)]
+                    elif text[k2] != emoticon[len(emoticon) - 1]:
+                        text = text[0:k1] + u' хоросмайл ' + text[k2:len(text)]
+
+        for emoticon in bad_emoticons:
+            indicator = False
+            k2 = 0
+            while not indicator:
+                if text.find(emoticon, k2, len(text)) == -1:
+                    indicator = True
+                else:
+                    k1 = text.find(emoticon, k2, len(text))
+                    k2 = k1 + len(emoticon)
+                    while (k2 < len(text) - 2) and (text[k2 + 1] == emoticon[len(emoticon) - 1]):
+                        k2 += 1
+                    if text[k2] == emoticon[len(emoticon) - 1]:
+                        text = text[0:k1] + u' плохосмайл ' + text[k2+1:len(text)]
+                    elif text[k2] != emoticon[len(emoticon) - 1]:
+                        text = text[0:k1] + u' плохосмайл ' + text[k2:len(text)]
+
+            output_data[input_file] = {}
+            output_data[input_file]['id'] = data['id']
+            output_data[input_file]['positive'] = data['positive']
+            output_data[input_file]['sarcasm'] = data['sarcasm']
+            output_data[input_file]['text'] = text
+
+            with open(output_directory + '/' + input_file, 'w') as output_file:
+                json.dump(output_data[input_file], output_file)
+
+
 def n_gram_feature(n, directory):
     #вычисляем, сколько в директории лежит файлов
     input_files = filter(lambda x: not x.endswith('~'), os.listdir(directory))
@@ -299,4 +350,3 @@ def without_foreign_words(directory):
 
         with open(directory + '/' + input_file, 'w') as output_file:
             json.dump(output_data[input_file], output_file)
-
