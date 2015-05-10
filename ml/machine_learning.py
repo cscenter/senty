@@ -20,6 +20,7 @@ class MachineLearning():
             for word in bash['terms']:
                 all_words.add(word)
         
+        print len(all_words)
         iter = 0
         self.terms_count = len(all_words)
         for word in all_words:
@@ -53,6 +54,7 @@ class MachineLearning():
             for word in bash['terms']:
                 all_words.add(word)
         
+        print len(all_words)
         iter = 0
         self.terms_count = len(all_words)
         for word in all_words:
