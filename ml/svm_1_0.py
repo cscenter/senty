@@ -8,7 +8,7 @@ class SVM(machine_learning.MachineLearning):
     def __init__(self, training_data_path):
         machine_learning.MachineLearning.__init__(self, training_data_path)
 
-    def predict(self, t):
+    def predict(self, block_size_in_ratio):
         self.data_for_fit = machine_learning.MachineLearning.fit_data_1_0(self)
         self.input_files = machine_learning.MachineLearning.getInputFiles(self)
         
@@ -31,7 +31,7 @@ class SVM(machine_learning.MachineLearning):
                 self.data_for_fit[1].remove(self.data_for_fit[1][0])
                 num += 1
             
-            self.svc = LinearSVC()
+            self.svc = LinearSVC(C = 0.45)
             self.svc.fit(self.data_for_fit[0], self.data_for_fit[1])
             
             alone_size = len(alone)
@@ -51,6 +51,8 @@ class SVM(machine_learning.MachineLearning):
         print 'SVC with 1 0: ' + str(round(100. * float(totalTrue) / N, 2)) + '%'
         return result  
       
+      
+    '''
     def qtCV(self, t):        
         self.data_for_fit = machine_learning.MachineLearning.fit_data_1_0(self)
         from sklearn import cross_validation
@@ -67,10 +69,11 @@ class SVM(machine_learning.MachineLearning):
             all_scores += scores.mean()
             print ''
         print all_scores / float(t)   
+    '''    
       
 #DEBUG = True
 DEBUG = False
 
 if DEBUG:
     svm_1_0 = SVM("../data/extractor_data/")        
-    svm_1_0.predict(5)
+    svm_1_0.predict(0.05)
