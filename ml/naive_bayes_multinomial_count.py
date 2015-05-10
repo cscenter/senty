@@ -2,6 +2,7 @@
 
 import machine_learning
 
+from sklearn import cross_validation
 from sklearn.naive_bayes import MultinomialNB
 
 class NaiveBayesMultinomial(machine_learning.MachineLearning):        
@@ -31,7 +32,9 @@ class NaiveBayesMultinomial(machine_learning.MachineLearning):
                 self.data_for_fit[1].remove(self.data_for_fit[1][0])
                 num += 1
             
-            self.gnb = MultinomialNB(alpha = 3)
+            best_alpha = 1.2785
+            #print 'best_alpha: ' + str(best_alpha)
+            self.gnb = MultinomialNB(alpha = best_alpha)
             self.gnb.fit(self.data_for_fit[0], self.data_for_fit[1])
             
             alone_size = len(alone)
@@ -50,6 +53,27 @@ class NaiveBayesMultinomial(machine_learning.MachineLearning):
         
         print 'Multinomial NB with count: ' + str(round(100. * float(totalTrue) / N, 2)) + '%'
         return result    
+        
+    #def cv(self, all_data)    
+        
+    # не хорошо так делать, переобучение получим несомненно мы
+    def cv(self, data, target, i): 
+        best_alpha = -1
+        cur_alpha = 0.01
+        best_scores = 0
+        while cur_alpha < 10:
+            self.gnb = MultinomialNB(alpha = cur_alpha)
+            scores = cross_validation.cross_val_score(self.gnb, data, target, cv = 5)
+            cur_alpha += 0.1
+
+            if best_scores <= scores.mean():
+                best_scores = scores.mean()
+                best_alpha = cur_alpha
+        print 'number: ' + str(i)        
+        print 'best_alpha: ' + str(best_alpha)
+        print 'best_score: ' + str(best_scores)         
+        return best_alpha
+        
         
 #DEBUG = True
 DEBUG = False
