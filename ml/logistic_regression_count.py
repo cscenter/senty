@@ -31,7 +31,7 @@ class LG(machine_learning.MachineLearning):
                 self.data_for_fit[1].remove(self.data_for_fit[1][0])
                 num += 1
             
-            self.lg = LogisticRegression()
+            self.lg = LogisticRegression(fit_intercept=False, C = 0.9)
             self.lg.fit(self.data_for_fit[0], self.data_for_fit[1])
             
             alone_size = len(alone)
