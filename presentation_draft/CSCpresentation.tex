@@ -83,18 +83,85 @@
 		\framesubtitle{\insertsubsection}
 		\textbf{Необходимо получить материалы для обучения.}\pause
 		
-		\textbf{Решение: \newline Парсим цитаты с bash.im с помощью Beautiful Soup и сохраняем их в формате json.}
+		\textbf{Решение: \newline Парсим цитаты (далее называемые башами) с bash.im с помощью Beautiful Soup и сохраняем их в формате json.}
 		\includegraphics[scale = 0.8]{images/bash_im.png}
 		\includegraphics[scale = 0.3]{images/beautiful_soup.jpg}
 	\end{frame}
 	
 	
-	\subsection{Фичи}
+	\subsection{Экстрактор и фичи}
 	\begin{frame}
 		\frametitle{\insertsection}
 		\framesubtitle{\insertsubsection}
-		\textbf{Фичи представляют собой дополнительные опции экстрактора. Их можно использовать в различных комбинациях для достижения высокой точности машинного обучения.}
+		\textbf{Для выделения термов из башей был написан экстрактор, который выделял слова, отметая знаки препинания и прочие разделители, и приводил их к нормальной форме с помощью Mystem. Далее было придумано множество различных фич, которые представляли собой дополнительные опции экстрактора и отвечали за создание новых термов и удаление из рассмотрения уже существующих. Их можно использовать в различных комбинациях для повышения точности машинного обучения.}
 	\end{frame}
+	
+	\subsection{Примеры работы различных фич}
+	\begin{frame}
+		\frametitle{\insertsection}
+		\framesubtitle{\insertsubsection}
+		
+		\begin{itemize}
+			\only<1-6>{\item \textbf{Исходный текст:} \newline "УЖАААСНО не люблю вставать по понедельникам и идти на работу ((((,... и по вторникам тоже))"}
+			
+			\only<2-4>{\item \textbf{Работа стандартного экстрактора с Mystem:} \newline"ужааасно не любить вставать по понедельник и идти на работа (((( и по вторник тоже ))"}
+			
+			\only<3-4>{\item \textbf{Добавление фичи, убирающей предлоги, союзы и местоимения:} \newline "ужааасно не любить вставать понедельник идти работа (((( вторник тоже ))"}
+			
+			\only<4>{\item \textbf{Добавление фичи, убирающей повторные буквы:} \newline "ужасно не любить вставать понедельник идти работа (((( вторник тоже ))"}
+			
+			\only<5-6>{\item \textbf{Добавление фичи, склеивающей "не" со словом, которому эта частица принадлежит:} \newline "ужасно нелюбить вставать понедельник идти работа (((( вторник тоже"}
+			
+			\only<6>{\item \textbf{Добавление фичи, выделяющей смайлики:} \newline "ужасно нелюбить вставать понедельник идти работа \alert{плохосмайл} вторник тоже \alert{хоросмайл}"} 
+		\end{itemize}
+		
+	\end{frame}
+	
+	
+	\section{Проблемы}
+	
+	\begin{frame}
+		\frametitle{insertsection}
+		\begin{itemize}
+			\item{малый объём выборки(примерно каждый четвёртый баш является эмоционально окрашенным, много сарказма, "чистая" разметка - дело не быстрое)}
+			\item{сильный "перекос" в сторону отрицательных башей в обучающей выборке}
+		\end{itemize}
+	\end{frame}
+	
+	
+	\section{Итоги практики}
+	
+	
+	\begin{frame}
+		\frametitle{\insertsection}
+		\begin{itemize}
+			\item{Работа в команде}
+			\item{Изучение Python(Mystem, Scikit learn, Beautiful soup)}
+			\item{Работа с GitHub}
+			\item{Работа с \LaTeX}
+		\end{itemize}
+		\includegraphics[scale = 0.08]{images/git_hub.png}
+		\includegraphics[scale = 0.08]{images/latex-logo.png}
+		\includegraphics[scale = 0.2]{images/scikit_learn.png}
+	\end{frame}
+	
+	
+	
+	
+	\section{Спасибо за внимание}
+	
+	\begin{frame}
+		\frametitle{\insertsection}
+		\href{https://github.com/cscenter/senty}{https://github.com/cscenter/senty}
+	\end{frame}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 \end{document}
