@@ -1,0 +1,86 @@
+\documentclass[t]{beamer}
+\usetheme{Szeged}
+\usecolortheme{beaver}
+\usepackage{cmap}					%поиск в pdf
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+%%% Работа с картинками
+\usepackage{graphicx}  % Для вставки рисунков
+\graphicspath{{images/}{images2/}}  % папки с картинками
+\setlength\fboxsep{3pt} % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt} % Толщина линий рамки \fbox{}
+\usepackage{wrapfig} % Обтекание рисунков текстом
+
+%%% Работа с таблицами
+\usepackage{array,tabularx,tabulary,booktabs} % Дополнительная работа с таблицами
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+%%% Программирование
+\usepackage{etoolbox} % логические операторы
+
+%%% Другие пакеты
+\usepackage{lastpage} % Узнать, сколько всего страниц в документе.
+\usepackage{soul} % Модификаторы начертания
+\usepackage{csquotes} % Еще инструменты для ссылок
+%\usepackage[style=authoryear,maxcitenames=2,backend=biber,sorting=nty]{biblatex}
+\usepackage{multicol} % Несколько колонок
+
+%%% Картинки
+\usepackage{tikz} % Работа с графикой
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+
+\title{Senty}
+\author{Балакший Андрей \and Сухочев Александр 
+	\and \newline Куратор:Юрий Курочкин}
+\date{19 мая 2015}
+\institute[Computer Science Center]
+
+\begin{document}
+	\frame[plain]{\titlepage}
+	
+	
+	\section{О проекте}
+	\begin{frame}
+		\frametitle{\insertsection}
+		\textbf{Поиск упоминаний и сентиментальная разметка коротких и 	очень коротких текстов.(с использованием "читой" разметки обучающего множества)}
+	\end{frame}
+	
+	
+	\section{Вдохновение}
+	\begin{frame}
+		\frametitle{\insertsection}
+		\textbf{Прочитали статью студентов из Стэнфорда о сентиментальной разметке твитов. Ребята производили "грязную" разметку обучающего множества и обучались по ней.}\pause
+		
+		\textbf{Захотелось чего-то аналогичного, но с русским языком и с "чистой" разметкой.}
+	\end{frame}
+	
+	
+	\section{Цель}
+	\begin{frame}
+		\frametitle{\insertsection}
+		\textbf{Хотим понимать настроение и эмоции человека по написанному им русскоязычному тексту.}
+	\end{frame}
+	
+	
+	\section{Что хотим сделать}
+	\begin{frame}
+		\frametitle{\insertsection}
+		\begin{itemize}
+			\item Найти источник для обучения, содержащий высказывания людей по тем или иным темам.	
+			\item Придумать различные фичи для текстов из нашего источника(признаки, по которым можно определять настроения людей, написавших данный текст) и реализовать по ним машинное обучение.
+		\end{itemize}
+	\end{frame}
+	
+	
+	\section{Этапы выполнения}
+	\subsection{Получение материала для обучения}
+	
+	
+	
+	
+	
+	
+\end{document}
