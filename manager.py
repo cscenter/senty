@@ -45,7 +45,7 @@ def getMlResults(ml, block_size_in_ratio):
     return ml.predict(block_size_in_ratio)
     
 def getMlLogInExtractor(ml):    
-    block_size_in_ratio = 0.05
+    block_size_in_ratio = 0.1
     log = getMlResults(ml, block_size_in_ratio)
     return log
     
@@ -93,15 +93,19 @@ def main():
     delete_folder_with_files(middle_data)
     os.mkdir(middle_data)    
     delete_folder_with_files(extractor_data)
-    os.mkdir(extractor_data)    
+    os.mkdir(extractor_data)     
 
+    # до насадки разбираемся с смайликами
+    print 'Ищем и преобразовываем смайлики...' 
+    features.emoticon_detection(marked_data, middle_data)
+    
     # обязательная насадка без удаления повторяющихся букв - прогонка через mystem + убираем знаки препинания
     #print 'Прогоняем через mystem и убираем знаки препинания...'
-    #features.mystem_using(marked_data, middle_data)    
+    #features.mystem_using(middle_data, middle_data)        
     
     # обязательная насадка с удалением повторяющихся букв - прогонка через mystem + убираем знаки препинания    
     print 'Прогоняем через mystem (удаляем подряд идущие повторяющиеся буквы) и убираем знаки препинания...'
-    features.mystem_using_with_considering_of_multiple_letters(marked_data, middle_data)    
+    features.mystem_using_with_considering_of_multiple_letters(middle_data, middle_data)    
         
     # удаление предлогов
     #print 'Убираем предлоги...'
