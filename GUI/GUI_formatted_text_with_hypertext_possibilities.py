@@ -2,8 +2,8 @@ import Tkinter
 import json
 import urllib
 file_with_hypertext = 'diff.txt'
-initial_directory = 'materials'
-result_directory = 'results'
+initial_directory = '../data/marked_data/'
+result_directory = '../data/extractor_data/'
 tk = Tkinter.Tk()
 txt = Tkinter.Text(tk, width=64, font='18')
 txt.place(relx=0, rely=0, relwidth=0.5, relheight=1)
