@@ -5,6 +5,10 @@ data
 data/*
 notes.txt
 diff.txt
-results_of_observations.aux
-results_of_observations.log
-results_of_observations.synctex.gz
+*.aux
+*.log
+*.synctex.gz
+*.nav
+*.out
+*.snm
+*.toc
