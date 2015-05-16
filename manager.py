@@ -56,27 +56,7 @@ def getFalsesInExtractor(ml, extractor):
         if l[1] != l[2]:
             log_with_falses.append(l)
     return log_with_falses
-
-'''
-def getDiffBetweenExtractors(ml, extractor1, extractor2):
-    #log1 = getFalsesInExtractor(ml, extractor1)
-    #log2 = getFalsesInExtractor(ml, extractor2)
-    log1 = getMlLogInExtractor(ml, extractor1)
-    log2 = getMlLogInExtractor(ml, extractor2)
-    diff_log1_log2 = []
-    for l in log1:
-        ok = False
-        res = ""
-        for l2 in log2:
-            if l[0] == l2[0] and l[1] != l2[1]:
-                ok = True
-                res = '@' + str(l[0]) + '; extr1): ' + str(l[1]) + '; extr2): ' + str(l2[1]) + '; really: ' + str(l[2]) 
-                break
-        if ok == True:
-            diff_log1_log2.append(res)
-    return diff_log1_log2        
-'''
-                             
+     
 def delete_folder_with_files(folder):
     if os.path.exists(folder) == True:
         files_in_folder = os.listdir(folder)
@@ -96,8 +76,8 @@ def main():
     os.mkdir(extractor_data)     
 
     # до насадки разбираемся с смайликами
-    print 'Ищем и преобразовываем смайлики...' 
-    features.emoticon_detection(marked_data, middle_data)
+    #print 'Ищем и преобразовываем смайлики...' 
+    #features.emoticon_detection(marked_data, middle_data)
     
     # обязательная насадка без удаления повторяющихся букв - прогонка через mystem + убираем знаки препинания
     #print 'Прогоняем через mystem и убираем знаки препинания...'
@@ -105,7 +85,7 @@ def main():
     
     # обязательная насадка с удалением повторяющихся букв - прогонка через mystem + убираем знаки препинания    
     print 'Прогоняем через mystem (удаляем подряд идущие повторяющиеся буквы) и убираем знаки препинания...'
-    features.mystem_using_with_considering_of_multiple_letters(middle_data, middle_data)    
+    features.mystem_using_with_considering_of_multiple_letters(marked_data, middle_data)    
         
     # удаление предлогов
     #print 'Убираем предлоги...'
@@ -147,14 +127,7 @@ def main():
     #executeMlAndPrintAccurancy(svm_tf_idf.SVM(extractor_data))
     #executeMlAndPrintAccurancy(logistic_regression_count.LG(extractor_data))
     
-    #delete_folder_with_files(middle_data)
-    '''
-    f = open('GUI/diff.txt', 'w')
-    for d in diff:
-        f.write(d + '\n')
-    f.close()
-    print 'Diffrence has been writen into diff.txt'
-    '''    
+    delete_folder_with_files(middle_data)    
     
 if __name__ == '__main__':
     main()
